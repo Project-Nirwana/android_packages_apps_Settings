@@ -196,7 +196,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <!-- PATCH: Added ID click_device_model -->
+                    <!-- PATCH: ID click_device_model -->
                     <LinearLayout
                         android:id="@+id/click_device_model"
                         android:layout_width="match_parent"
@@ -245,7 +245,7 @@
                         android:layout_height="@dimen/margin_between_rows"
                         android:background="?android:attr/colorBackground" />
 
-                    <!-- PATCH: Added ID click_android_version -->
+                    <!-- PATCH: ID click_android_version -->
                     <LinearLayout
                         android:id="@+id/click_android_version"
                         android:layout_width="match_parent"
@@ -309,7 +309,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <!-- PATCH: Added ID click_nirwana_version -->
+                    <!-- PATCH: ID click_nirwana_version -->
                     <LinearLayout
                         android:id="@+id/click_nirwana_version"
                         android:layout_width="match_parent"
@@ -325,7 +325,7 @@
                         <ImageView
                             android:layout_width="@dimen/size_icon_standard"
                             android:layout_height="@dimen/size_icon_standard"
-                            android:src="@drawable/ic_nirwanalogo"
+                            android:src="@drawable/ic_android"
                             android:tint="?android:attr/colorAccent"
                             android:importantForAccessibility="no" />
 
