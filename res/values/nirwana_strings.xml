@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- About Device Strings -->
+    <string name="nirwana_about_title">About</string>
+    <string name="nirwana_device_title">Device</string>
+    <string name="nirwana_about_device_subtitle">Know what\'s hiding inside</string>
+    <string name="nirwana_version">Nirwana Version</string>
+    <string name="device_maintainer">Device Maintainer</string>
+    <string name="processor_title">Processor</string>
+    <string name="camera_title">Camera</string>
+    <string name="storage_title">Storage</string>
+    <string name="screen_title">Screen</string>
+    <string name="up_time_title">Up Time</string>
+    <string name="build_number_title">Build Number</string>
+    <string name="google_account_title">Google Account</string>
+    <string name="wifi_mac_title">Wi-Fi MAC Address</string>
+    <string name="nirwana_kashmera_tag">Kashmera</string>
+    <string name="nirwana_banner_title_part1">Gurez</string>
+    <string name="nirwana_banner_title_part2">Valley</string>
+</resources>

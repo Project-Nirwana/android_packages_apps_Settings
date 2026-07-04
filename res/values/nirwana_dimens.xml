@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- General Spacing -->
+    <dimen name="padding_screen">20dp</dimen>
+    <dimen name="padding_bottom_screen">40dp</dimen>
+    <dimen name="margin_standard">24dp</dimen>
+    <dimen name="margin_small">12dp</dimen>
+    <dimen name="margin_header_top">104dp</dimen>
+    <dimen name="margin_card_vertical">16dp</dimen>
+    <dimen name="margin_card_top_large">32dp</dimen>
+    <dimen name="margin_card_top_hero">24dp</dimen>
+    <dimen name="margin_gap_hero">22dp</dimen>
+    <dimen name="margin_gap_spec">7dp</dimen>
+    <dimen name="margin_between_rows">3dp</dimen>
+
+    <!-- Component Specific Dimensions -->
+    <dimen name="height_banner">124dp</dimen>
+    <dimen name="height_hero_grid">262dp</dimen>
+    <dimen name="height_grouped_block">122dp</dimen>
+    <dimen name="height_hw_info_total">194dp</dimen>
+    <dimen name="height_hw_info_item">120dp</dimen>
+    <dimen name="height_illusion_gap">2dp</dimen>
+    <dimen name="divider_thickness">1dp</dimen>
+
+    <!-- Icons and Indicators -->
+    <dimen name="size_icon_standard">24dp</dimen>
+    <dimen name="size_indicator_circle">32dp</dimen>
+    <dimen name="size_indicator_chevron">16dp</dimen>
+
+    <!-- Corner Radii -->
+    <dimen name="radius_hero">21dp</dimen>
+    <dimen name="radius_standard">24dp</dimen>
+    <dimen name="radius_small">20dp</dimen>
+    <dimen name="radius_indicator">16dp</dimen>
+
+    <!-- Strokes and Padding -->
+    <dimen name="stroke_width_hero">4dp</dimen>
+    <dimen name="padding_item_row">20dp</dimen>
+    <dimen name="padding_pill_horizontal">18dp</dimen>
+    <dimen name="padding_pill_vertical">6dp</dimen>
+</resources>

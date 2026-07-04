@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Using a high corner radius to create the pill shape -->
+    <corners android:radius="100dp" />
+    <!-- Falling back to a translucent black to respect dynamic backgrounds -->
+    <solid android:color="#4D000000" />
+</shape>
