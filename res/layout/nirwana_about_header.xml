@@ -328,7 +328,7 @@
                     <ImageView
                         android:layout_width="@dimen/size_icon_standard"
                         android:layout_height="@dimen/size_icon_standard"
-                        android:src="@drawable/ic_nirwanalogo"
+                        android:src="@drawable/ic_android"
                         android:tint="?android:attr/colorAccent"
                         android:importantForAccessibility="no" />
 
