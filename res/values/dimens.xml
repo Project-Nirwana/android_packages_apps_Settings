@@ -61,7 +61,7 @@
     <dimen name="captioning_preview_text_size">48dp</dimen>
 
     <!-- ActionBar contentInsetStart -->
-    <dimen name="actionbar_contentInsetStart">16dp</dimen>
+    <dimen name="actionbar_contentInsetStart">24dp</dimen>
     <dimen name="actionbar_subsettings_contentInsetStart">72dp</dimen>
 
     <!-- Dashboard image tile size -->

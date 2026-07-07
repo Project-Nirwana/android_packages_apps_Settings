@@ -194,7 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="@color/settingslib_materialColorSurfaceContainerHigh"
+                app:cardBackgroundColor="?android:attr/colorBackground"
                 app:cardCornerRadius="@dimen/radius_small"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp">
@@ -213,7 +213,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:background="?android:attr/selectableItemBackground"
-                        android:paddingHorizontal="20dp">
+                        android:paddingHorizontal="24dp">
 
                         <ImageView
                             android:layout_width="@dimen/size_icon_standard"
@@ -226,7 +226,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_marginStart="14dp"
+                            android:layout_marginStart="16dp"
                             android:orientation="vertical">
 
                             <TextView
@@ -266,7 +266,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:background="?android:attr/selectableItemBackground"
-                        android:paddingHorizontal="20dp">
+                        android:paddingHorizontal="24dp">
 
                         <ImageView
                             android:layout_width="@dimen/size_icon_standard"
@@ -279,7 +279,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_marginStart="14dp"
+                            android:layout_marginStart="16dp"
                             android:orientation="vertical">
 
                             <TextView
@@ -316,7 +316,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="@color/settingslib_materialColorSurfaceContainerHighest"
+                app:cardBackgroundColor="?android:attr/colorBackground"
                 app:cardCornerRadius="@dimen/radius_small"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp">
@@ -348,7 +348,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_marginStart="14dp"
+                            android:layout_marginStart="16dp"
                             android:orientation="vertical">
 
                             <TextView
@@ -400,7 +400,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_marginStart="14dp"
+                            android:layout_marginStart="16dp"
                             android:orientation="vertical">
 
                             <TextView
@@ -437,7 +437,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:cardBackgroundColor="@color/settingslib_materialColorSurfaceContainerHighest"
+            app:cardBackgroundColor="?android:attr/colorBackground"
             app:cardCornerRadius="@dimen/radius_standard"
             app:cardElevation="0dp"
             app:strokeWidth="0dp"
