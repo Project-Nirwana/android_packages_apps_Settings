@@ -134,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.375" />
+            app:layout_constraintGuide_percent="0.425" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/clock_card_container"
@@ -194,7 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="@color/settingslib_materialColorSurfaceContainerHighest"
+                app:cardBackgroundColor="@color/settingslib_materialColorSurfaceContainerHigh"
                 app:cardCornerRadius="@dimen/radius_small"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp">
@@ -213,7 +213,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:background="?android:attr/selectableItemBackground"
-                        android:paddingHorizontal="16dp">
+                        android:paddingHorizontal="20dp">
 
                         <ImageView
                             android:layout_width="@dimen/size_icon_standard"
@@ -254,8 +254,8 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="?android:attr/colorBackgroundFloating" />
+                        android:layout_height="2dp"
+                        android:background="?android:attr/colorBackground" />
 
                     <LinearLayout
                         android:id="@+id/click_android_version"
@@ -266,7 +266,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:background="?android:attr/selectableItemBackground"
-                        android:paddingHorizontal="16dp">
+                        android:paddingHorizontal="20dp">
 
                         <ImageView
                             android:layout_width="@dimen/size_icon_standard"
@@ -335,7 +335,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:background="?android:attr/selectableItemBackground"
-                        android:paddingHorizontal="16dp">
+                        android:paddingHorizontal="24dp">
 
                         <ImageView
                             android:layout_width="@dimen/size_icon_standard"
@@ -387,7 +387,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:background="?android:attr/selectableItemBackground"
-                        android:paddingHorizontal="16dp">
+                        android:paddingHorizontal="24dp">
 
                         <ImageView
                             android:layout_width="@dimen/size_icon_standard"
