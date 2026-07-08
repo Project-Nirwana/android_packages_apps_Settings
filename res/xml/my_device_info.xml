@@ -21,6 +21,11 @@
     android:key="my_device_info_pref_screen"
     android:title="@string/about_settings">
 
+    <com.android.settings.widget.NirwanaTitlePreference
+        android:key="about_hero_title"
+        android:title="About Device"
+        android:summary="Know what's hiding inside" />
+
     <com.android.settingslib.widget.LayoutPreference
         android:key="nirwana_about_header"
         android:layout="@layout/nirwana_about_header"

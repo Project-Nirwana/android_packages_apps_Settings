@@ -136,12 +136,33 @@ public class MyDeviceInfoFragment extends DashboardFragment
             // 1. Suppress native CollapsingToolbar title
             activity.setTitle("");
 
-            // 2. Surgical Translucent Injection for About Device Page
+            // 2. Surgical Translucent Injection & Void Collapse
             com.google.android.material.appbar.AppBarLayout appBar =
-                    activity.findViewById(R.id.app_bar); // Corrected merged resource ID
+                    activity.findViewById(R.id.app_bar);
 
             if (appBar != null) {
-                // Apply the semi-transparent Monet tint (Cards will bleed through on scroll)
+                // Instantly collapse the giant empty void (false, false = no animation)
+                appBar.setExpanded(false, false);
+
+                // Lock the AppBar so the user cannot pull the empty void back down
+                if (appBar.getLayoutParams() instanceof androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams) {
+                    androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams params =
+                            (androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
+
+                    if (params.getBehavior() instanceof com.google.android.material.appbar.AppBarLayout.Behavior) {
+                        com.google.android.material.appbar.AppBarLayout.Behavior behavior =
+                                (com.google.android.material.appbar.AppBarLayout.Behavior) params.getBehavior();
+
+                        behavior.setDragCallback(new com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback() {
+                            @Override
+                            public boolean canDrag(com.google.android.material.appbar.AppBarLayout appBarLayout) {
+                                return false; // Prevents downward drag expansion
+                            }
+                        });
+                    }
+                }
+
+                // Apply the semi-transparent Monet tint for the scroll bleed
                 appBar.setBackgroundResource(R.color.nirwana_glass_surface);
             }
         }
