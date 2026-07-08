@@ -126,31 +126,26 @@ public class MyDeviceInfoFragment extends DashboardFragment
         initHeader();
     }
 
-    // PROJECT NIRWANA: INJECT TITLE KILL & SURGICAL FROSTED GLASS HERE
+    // PROJECT NIRWANA: INJECT TITLE KILL & TRANSLUCENT OVERLAY
     @Override
     public void onResume() {
         super.onResume();
 
         Activity activity = getActivity();
         if (activity != null) {
-            // 1. Suppress native CollapsingToolbar title to allow custom header breathing room
+            // 1. Suppress native CollapsingToolbar title
             activity.setTitle("");
 
-            // 2. Surgical Frosted Glass Injection for About Device Page
+            // 2. Surgical Translucent Injection for About Device Page
             com.google.android.material.appbar.AppBarLayout appBar =
-                    activity.findViewById(com.android.settingslib.R.id.app_bar);
+                    activity.findViewById(R.id.app_bar); // Corrected merged resource ID
 
             if (appBar != null) {
-                // Apply the semi-transparent Monet tint
+                // Apply the semi-transparent Monet tint (Cards will bleed through on scroll)
                 appBar.setBackgroundResource(R.color.nirwana_glass_surface);
-
-                // Apply 16dp hardware blur (converted to pixels via screen density)
-                float density = getResources().getDisplayMetrics().density;
-                appBar.setBackgroundBlurRadius((int) (16 * density));
             }
         }
     }
-
     // END NIRWANA INJECTION
 
     @Override
