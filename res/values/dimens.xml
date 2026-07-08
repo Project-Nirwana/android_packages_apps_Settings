@@ -62,7 +62,7 @@
 
     <!-- ActionBar contentInsetStart -->
     <dimen name="actionbar_contentInsetStart">24dp</dimen>
-    <dimen name="actionbar_subsettings_contentInsetStart">72dp</dimen>
+    <dimen name="actionbar_subsettings_contentInsetStart">24dp</dimen>
 
     <!-- Dashboard image tile size -->
     <dimen name="dashboard_tile_image_size">40dp</dimen>
@@ -562,4 +562,8 @@
     <dimen name="bluetooth_battery_indicator_battery_meter_height">16dp</dimen>
     <dimen name="bluetooth_battery_indicator_charging_icon_width">12dp</dimen>
     <dimen name="bluetooth_battery_indicator_charging_icon_height">16dp</dimen>
+
+    <dimen name="preference_fragment_padding_side">24dp</dimen>
+
+
 </resources>

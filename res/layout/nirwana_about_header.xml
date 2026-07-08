@@ -437,7 +437,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:cardBackgroundColor="?android:attr/colorBackground"
+            app:cardBackgroundColor="@color/settingslib_materialColorSurfaceBright"
             app:cardCornerRadius="@dimen/radius_standard"
             app:cardElevation="0dp"
             app:strokeWidth="0dp"
