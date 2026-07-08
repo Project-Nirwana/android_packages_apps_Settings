@@ -194,7 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="?android:attr/colorBackground"
+                app:cardBackgroundColor="@color/settingslib_materialColorSurfaceContainer"
                 app:cardCornerRadius="@dimen/radius_small"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp">
@@ -272,7 +272,7 @@
                             android:layout_width="@dimen/size_icon_standard"
                             android:layout_height="@dimen/size_icon_standard"
                             android:src="@drawable/ic_android"
-                            android:tint="?android:attr/colorAccent"
+                            android:tint="@color/settingslib_materialColorPrimary"
                             android:importantForAccessibility="no" />
 
                         <LinearLayout
@@ -316,7 +316,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="?android:attr/colorBackground"
+                app:cardBackgroundColor="@color/settingslib_materialColorSurfaceContainer"
                 app:cardCornerRadius="@dimen/radius_small"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp">
@@ -341,7 +341,7 @@
                             android:layout_width="@dimen/size_icon_standard"
                             android:layout_height="@dimen/size_icon_standard"
                             android:src="@drawable/ic_android"
-                            android:tint="?android:attr/colorAccent"
+                            android:tint="@color/settingslib_materialColorPrimary"
                             android:importantForAccessibility="no" />
 
                         <LinearLayout
@@ -526,7 +526,7 @@
                         android:layout_width="@dimen/size_icon_standard"
                         android:layout_height="@dimen/size_icon_standard"
                         android:src="@drawable/ic_camera"
-                        android:tint="?android:attr/colorAccent"
+                        android:tint="@color/settingslib_materialColorPrimary"
                         android:importantForAccessibility="no" />
 
                     <TextView
@@ -564,7 +564,7 @@
                         android:layout_width="@dimen/size_icon_standard"
                         android:layout_height="@dimen/size_icon_standard"
                         android:src="@drawable/ic_storage"
-                        android:tint="?android:attr/colorAccent"
+                        android:tint="@color/settingslib_materialColorPrimary"
                         android:importantForAccessibility="no" />
 
                     <TextView
