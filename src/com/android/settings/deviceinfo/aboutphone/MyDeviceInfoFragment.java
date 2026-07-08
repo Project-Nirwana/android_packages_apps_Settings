@@ -126,6 +126,33 @@ public class MyDeviceInfoFragment extends DashboardFragment
         initHeader();
     }
 
+    // PROJECT NIRWANA: INJECT TITLE KILL & SURGICAL FROSTED GLASS HERE
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Activity activity = getActivity();
+        if (activity != null) {
+            // 1. Suppress native CollapsingToolbar title to allow custom header breathing room
+            activity.setTitle("");
+
+            // 2. Surgical Frosted Glass Injection for About Device Page
+            com.google.android.material.appbar.AppBarLayout appBar =
+                    activity.findViewById(com.android.settingslib.R.id.app_bar);
+
+            if (appBar != null) {
+                // Apply the semi-transparent Monet tint
+                appBar.setBackgroundResource(R.color.nirwana_glass_surface);
+
+                // Apply 16dp hardware blur (converted to pixels via screen density)
+                float density = getResources().getDisplayMetrics().density;
+                appBar.setBackgroundBlurRadius((int) (16 * density));
+            }
+        }
+    }
+
+    // END NIRWANA INJECTION
+
     @Override
     protected String getLogTag() {
         return LOG_TAG;
