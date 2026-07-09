@@ -126,48 +126,39 @@ public class MyDeviceInfoFragment extends DashboardFragment
         initHeader();
     }
 
-    // PROJECT NIRWANA: INJECT TITLE KILL & TRANSLUCENT OVERLAY
+    // PROJECT NIRWANA: TITLE KILL
     @Override
     public void onResume() {
         super.onResume();
 
         Activity activity = getActivity();
         if (activity != null) {
-            // 1. Suppress native CollapsingToolbar title
+
             activity.setTitle("");
 
-            // 2. Surgical Translucent Injection & Void Collapse
             com.google.android.material.appbar.AppBarLayout appBar =
                     activity.findViewById(R.id.app_bar);
 
             if (appBar != null) {
-                // Instantly collapse the giant empty void (false, false = no animation)
+
                 appBar.setExpanded(false, false);
 
-                // Lock the AppBar so the user cannot pull the empty void back down
-                if (appBar.getLayoutParams() instanceof androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams) {
-                    androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams params =
-                            (androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
+                if (appBar.getChildCount() > 0) {
+                    android.view.View collapsingToolbar = appBar.getChildAt(0);
+                    if (collapsingToolbar.getLayoutParams() instanceof com.google.android.material.appbar.AppBarLayout.LayoutParams) {
+                        com.google.android.material.appbar.AppBarLayout.LayoutParams params =
+                                (com.google.android.material.appbar.AppBarLayout.LayoutParams) collapsingToolbar.getLayoutParams();
 
-                    if (params.getBehavior() instanceof com.google.android.material.appbar.AppBarLayout.Behavior) {
-                        com.google.android.material.appbar.AppBarLayout.Behavior behavior =
-                                (com.google.android.material.appbar.AppBarLayout.Behavior) params.getBehavior();
-
-                        behavior.setDragCallback(new com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback() {
-                            @Override
-                            public boolean canDrag(com.google.android.material.appbar.AppBarLayout appBarLayout) {
-                                return false; // Prevents downward drag expansion
-                            }
-                        });
+                        collapsingToolbar.setLayoutParams(params);
                     }
                 }
 
-                // Apply the semi-transparent Monet tint for the scroll bleed
+                // 4. Apply the frosted glass overlay for when the grid scrolls under it
                 appBar.setBackgroundResource(R.color.nirwana_glass_surface);
             }
         }
     }
-    // END NIRWANA INJECTION
+    // END NIRWANA TITLE FIX
 
     @Override
     protected String getLogTag() {

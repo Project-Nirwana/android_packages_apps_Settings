@@ -2,44 +2,34 @@ package com.android.settings.widget
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import android.widget.TextView
-import androidx.preference.Preference
-import androidx.preference.PreferenceViewHolder
+import com.android.settingslib.widget.LayoutPreference
 import com.android.settings.R
 
-class NirwanaTitlePreference(context: Context, attrs: AttributeSet?) : Preference(context, attrs) {
-
-    private val prefix: String
-    private val suffix: String
-    private val subtitle: String
+class NirwanaTitlePreference(context: Context, attrs: AttributeSet?) : LayoutPreference(context, attrs) {
 
     init {
-        layoutResource = R.layout.nirwana_title_preference
-        isSelectable = false
-
+        // Parse the standard android:title attribute and split it at the first space
         val fullTitle = title?.toString() ?: ""
         val spaceIndex = fullTitle.indexOf(" ")
 
-        if (spaceIndex != -1) {
-            prefix = fullTitle.substring(0, spaceIndex)
-            suffix = fullTitle.substring(spaceIndex + 1)
-        } else {
-            prefix = fullTitle
-            suffix = ""
-        }
+        val prefix = if (spaceIndex != -1) fullTitle.substring(0, spaceIndex) else fullTitle
+        val suffix = if (spaceIndex != -1) fullTitle.substring(spaceIndex + 1) else ""
+        val subtitleText = summary?.toString() ?: ""
 
-        subtitle = summary?.toString() ?: ""
-    }
-
-    override fun onBindViewHolder(holder: PreferenceViewHolder) {
-        super.onBindViewHolder(holder)
-
-        val prefixView = holder.findViewById(R.id.nirwana_title_prefix) as? TextView
-        val suffixView = holder.findViewById(R.id.nirwana_title_suffix) as? TextView
-        val subtitleView = holder.findViewById(R.id.nirwana_subtitle) as? TextView
+        // LayoutPreference allows us to find views immediately, no ViewHolder needed!
+        val prefixView = findViewById(R.id.nirwana_title_prefix) as? TextView
+        val suffixView = findViewById(R.id.nirwana_title_suffix) as? TextView
+        val subtitleView = findViewById(R.id.nirwana_subtitle) as? TextView
 
         prefixView?.text = prefix
         suffixView?.text = suffix
-        subtitleView?.text = subtitle
+
+        if (subtitleText.isNotEmpty()) {
+            subtitleView?.text = subtitleText
+        } else {
+            subtitleView?.visibility = View.GONE
+        }
     }
 }

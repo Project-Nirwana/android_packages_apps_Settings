@@ -23,6 +23,7 @@
 
     <com.android.settings.widget.NirwanaTitlePreference
         android:key="about_hero_title"
+        android:layout="@layout/nirwana_title_preference"
         android:title="About Device"
         android:summary="Know what's hiding inside" />
 
