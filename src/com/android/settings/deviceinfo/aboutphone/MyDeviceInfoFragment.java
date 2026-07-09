@@ -126,7 +126,7 @@ public class MyDeviceInfoFragment extends DashboardFragment
         initHeader();
     }
 
-    // PROJECT NIRWANA: THE NUCLEAR VOID KILLER
+    // PROJECT NIRWANA: THE VOID & PADDING ANNIHILATOR
     @Override
     public void onResume() {
         super.onResume();
@@ -143,37 +143,45 @@ public class MyDeviceInfoFragment extends DashboardFragment
                 // 2. Instantly force the gap shut
                 appBar.setExpanded(false, false);
 
-                // 3. Strip scroll flags from ALL internal containers (Not just index 0)
+                // 3. Strip scroll flags to permanently prevent nested-scroll re-expansion
                 for (int i = 0; i < appBar.getChildCount(); i++) {
                     android.view.View child = appBar.getChildAt(i);
                     if (child.getLayoutParams() instanceof com.google.android.material.appbar.AppBarLayout.LayoutParams) {
                         com.google.android.material.appbar.AppBarLayout.LayoutParams childParams =
                                 (com.google.android.material.appbar.AppBarLayout.LayoutParams) child.getLayoutParams();
 
-                        // 0 = SCROLL_FLAG_NONE. Child cannot react to scrolling.
                         childParams.setScrollFlags(0);
                         child.setLayoutParams(childParams);
                     }
                 }
 
-                // 4. THE NUCLEAR OPTION: Annihilate the CoordinatorLayout Behavior
-                if (appBar.getLayoutParams() instanceof androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams) {
-                    androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams params =
-                            (androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
-
-                    // Setting behavior to NULL physically severs the AppBar from the RecyclerView.
-                    // The OS scrolling engine can no longer communicate with the AppBar to pull it open.
-                    params.setBehavior(null);
-                    appBar.setLayoutParams(params);
-                }
-
-                // 5. Apply the frosted glass overlay
+                // 4. Apply the frosted glass overlay
                 appBar.setBackgroundResource(R.color.nirwana_glass_surface);
+
+                // 5. THE PADDING ANNIHILATOR
+                androidx.recyclerview.widget.RecyclerView recyclerView = getListView();
+                if (recyclerView != null) {
+                    // We use post() to wait for the AppBar to finish snapping shut
+                    recyclerView.post(() -> {
+                        // Get the exact height of the now-collapsed AppBar (Toolbar + Status Bar)
+                        int collapsedHeight = appBar.getHeight();
+
+                        // Force the RecyclerView to drop the stale 150dp void and snap to the collapsed height
+                        recyclerView.setPadding(
+                                recyclerView.getPaddingLeft(),
+                                collapsedHeight,
+                                recyclerView.getPaddingRight(),
+                                recyclerView.getPaddingBottom()
+                        );
+
+                        // Ensure the list items can visually glide under the frosted glass when scrolling
+                        recyclerView.setClipToPadding(false);
+                    });
+                }
             }
         }
     }
     // END NIRWANA INJECTION
-
     @Override
     protected String getLogTag() {
         return LOG_TAG;
