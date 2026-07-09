@@ -120,56 +120,67 @@ public class MyDeviceInfoFragment extends DashboardFragment
         }
     }
 
-    // PROJECT NIRWANA: LIFECYCLE-IMMUNE TITLE KILL & GEOMETRY OVERRIDE
+    // PROJECT NIRWANA: EXPLICIT GEOMETRY LOCKDOWN
     @Override
     public void onResume() {
         super.onResume();
 
         Activity activity = getActivity();
         if (activity != null) {
-            // 1. Initial Title Kill (Executes during standard onResume)
-            activity.setTitle("");
-
             com.google.android.material.appbar.AppBarLayout appBar =
                     activity.findViewById(R.id.app_bar);
 
             if (appBar != null) {
-                // 4. THE SOLID WALL: Paint the AppBar with the native 100% solid Monet background color
-// This prevents scrolling text from bleeding into the status bar icons
-                int solidSurfaceColor = com.android.settingslib.Utils.getColorAttrDefaultColor(activity, android.R.attr.colorBackground);
-                appBar.setBackgroundColor(solidSurfaceColor);
-
-                // 2. Queue the Geometry Mutation & Secondary Kill to run AFTER the OS finishes drawing
                 appBar.post(() -> {
-                    // Force a secondary title kill just in case SubSettings was delayed
-                    activity.setTitle("");
+                    // 1. Calculate precise Action Bar height
+                    int actionBarHeight = 0;
+                    android.util.TypedValue tv = new android.util.TypedValue();
+                    if (activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+                        actionBarHeight = android.util.TypedValue.complexToDimensionPixelSize(
+                                tv.data, getResources().getDisplayMetrics());
+                    }
 
-                    appBar.setExpanded(false, false);
+                    // 2. Calculate precise Status Bar height (using WindowInsets)
+                    int statusBarHeight = 0;
+                    android.view.WindowInsets insets = appBar.getRootWindowInsets();
+                    if (insets != null) {
+                        statusBarHeight = insets.getSystemWindowInsetTop();
+                    } else {
+                        // Fallback measurement if insets are not ready
+                        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+                        if (resourceId > 0) {
+                            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+                        }
+                    }
+
+                    // The golden mathematical bounds (Action Bar + Status Bar)
+                    int targetHeight = actionBarHeight + statusBarHeight;
 
                     if (appBar.getChildCount() > 0) {
                         android.view.View child = appBar.getChildAt(0);
-
                         if (child instanceof com.google.android.material.appbar.CollapsingToolbarLayout) {
                             com.google.android.material.appbar.CollapsingToolbarLayout ctl =
                                     (com.google.android.material.appbar.CollapsingToolbarLayout) child;
 
-                            // Silence the Material 3 text canvas
+                            // 3. Kill the Material Ghost Text entirely
                             ctl.setTitleEnabled(false);
                             ctl.setTitle("");
 
-                            // Mutate bounds to destroy the gap
+                            // 4. Force the explicit bounds and sever scroll physics
                             if (ctl.getLayoutParams() instanceof com.google.android.material.appbar.AppBarLayout.LayoutParams) {
                                 com.google.android.material.appbar.AppBarLayout.LayoutParams params =
                                         (com.google.android.material.appbar.AppBarLayout.LayoutParams) ctl.getLayoutParams();
 
-                                params.height = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-                                params.setScrollFlags(0);
+                                params.height = targetHeight; // Amputates the void, perfectly preserves status bar
+                                params.setScrollFlags(0); // Locks it forever
                                 ctl.setLayoutParams(params);
                             }
-                            // 3. Force the Android rendering engine to redraw the UI with our collapsed bounds
-                            ctl.requestLayout();
                         }
                     }
+
+                    // 5. The Solid Shield: Prevent scrolling content from bleeding into the status bar
+                    int solidColor = com.android.settingslib.Utils.getColorAttrDefaultColor(activity, android.R.attr.colorBackground);
+                    appBar.setBackgroundColor(solidColor);
                 });
             }
         }
