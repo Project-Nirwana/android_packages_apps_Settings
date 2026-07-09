@@ -134,8 +134,10 @@ public class MyDeviceInfoFragment extends DashboardFragment
                     activity.findViewById(R.id.app_bar);
 
             if (appBar != null) {
-                // Apply the frosted glass overlay
-                appBar.setBackgroundResource(R.color.nirwana_glass_surface);
+                // 4. THE SOLID WALL: Paint the AppBar with the native 100% solid Monet background color
+// This prevents scrolling text from bleeding into the status bar icons
+                int solidSurfaceColor = com.android.settingslib.Utils.getColorAttrDefaultColor(activity, android.R.attr.colorBackground);
+                appBar.setBackgroundColor(solidSurfaceColor);
 
                 // 2. Queue the Geometry Mutation & Secondary Kill to run AFTER the OS finishes drawing
                 appBar.post(() -> {
