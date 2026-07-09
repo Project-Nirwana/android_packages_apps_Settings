@@ -123,38 +123,39 @@ public class MyDeviceInfoFragment extends DashboardFragment
     @Override
     public void onStart() {
         super.onStart();
-        initHeader(); // Keep the native AOSP call
+        initHeader();
 
-        // PROJECT NIRWANA: STRUCTURAL GEOMETRY OVERRIDE
+        // PROJECT NIRWANA: STRUCTURAL GEOMETRY OVERRIDE & GHOST KILLER
         Activity activity = getActivity();
         if (activity != null) {
-            // 1. Suppress the native text string
-            activity.setTitle("");
-
             com.google.android.material.appbar.AppBarLayout appBar =
                     activity.findViewById(R.id.app_bar);
 
             if (appBar != null) {
-                // 2. Disable layout expansion animations
+                // 1. Disable layout expansion animations
                 appBar.setExpanded(false, false);
 
-                // 3. Mutate the CollapsingToolbar bounds directly
                 if (appBar.getChildCount() > 0) {
-                    android.view.View collapsingToolbar = appBar.getChildAt(0);
+                    android.view.View child = appBar.getChildAt(0);
 
-                    if (collapsingToolbar.getLayoutParams() instanceof com.google.android.material.appbar.AppBarLayout.LayoutParams) {
+                    // 2. THE GHOST KILLER: Disable the Material Text Canvas
+                    if (child instanceof com.google.android.material.appbar.CollapsingToolbarLayout) {
+                        com.google.android.material.appbar.CollapsingToolbarLayout collapsingToolbar =
+                                (com.google.android.material.appbar.CollapsingToolbarLayout) child;
+
+                        // Physically disables the rendering of the native large title
+                        collapsingToolbar.setTitleEnabled(false);
+                        collapsingToolbar.setTitle("");
+                    }
+
+                    // 3. Mutate the bounds directly to destroy the gap
+                    if (child.getLayoutParams() instanceof com.google.android.material.appbar.AppBarLayout.LayoutParams) {
                         com.google.android.material.appbar.AppBarLayout.LayoutParams ctlParams =
-                                (com.google.android.material.appbar.AppBarLayout.LayoutParams) collapsingToolbar.getLayoutParams();
+                                (com.google.android.material.appbar.AppBarLayout.LayoutParams) child.getLayoutParams();
 
-                        // DESTROY THE HARDCODED 152dp XML DIMENSION
-                        // Force it to wrap the Action Bar (respecting status bar insets automatically)
                         ctlParams.height = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-
-                        // Sever scroll physics
                         ctlParams.setScrollFlags(0);
-
-                        // Apply mutated parameters
-                        collapsingToolbar.setLayoutParams(ctlParams);
+                        child.setLayoutParams(ctlParams);
                     }
                 }
 
