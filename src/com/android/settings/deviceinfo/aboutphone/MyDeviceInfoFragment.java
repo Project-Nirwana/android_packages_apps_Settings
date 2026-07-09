@@ -126,39 +126,53 @@ public class MyDeviceInfoFragment extends DashboardFragment
         initHeader();
     }
 
-    // PROJECT NIRWANA: TITLE KILL
+    // PROJECT NIRWANA: THE NUCLEAR VOID KILLER
     @Override
     public void onResume() {
         super.onResume();
 
         Activity activity = getActivity();
         if (activity != null) {
-
+            // 1. Suppress native text
             activity.setTitle("");
 
             com.google.android.material.appbar.AppBarLayout appBar =
                     activity.findViewById(R.id.app_bar);
 
             if (appBar != null) {
-
+                // 2. Instantly force the gap shut
                 appBar.setExpanded(false, false);
 
-                if (appBar.getChildCount() > 0) {
-                    android.view.View collapsingToolbar = appBar.getChildAt(0);
-                    if (collapsingToolbar.getLayoutParams() instanceof com.google.android.material.appbar.AppBarLayout.LayoutParams) {
-                        com.google.android.material.appbar.AppBarLayout.LayoutParams params =
-                                (com.google.android.material.appbar.AppBarLayout.LayoutParams) collapsingToolbar.getLayoutParams();
+                // 3. Strip scroll flags from ALL internal containers (Not just index 0)
+                for (int i = 0; i < appBar.getChildCount(); i++) {
+                    android.view.View child = appBar.getChildAt(i);
+                    if (child.getLayoutParams() instanceof com.google.android.material.appbar.AppBarLayout.LayoutParams) {
+                        com.google.android.material.appbar.AppBarLayout.LayoutParams childParams =
+                                (com.google.android.material.appbar.AppBarLayout.LayoutParams) child.getLayoutParams();
 
-                        collapsingToolbar.setLayoutParams(params);
+                        // 0 = SCROLL_FLAG_NONE. Child cannot react to scrolling.
+                        childParams.setScrollFlags(0);
+                        child.setLayoutParams(childParams);
                     }
                 }
 
-                // 4. Apply the frosted glass overlay for when the grid scrolls under it
+                // 4. THE NUCLEAR OPTION: Annihilate the CoordinatorLayout Behavior
+                if (appBar.getLayoutParams() instanceof androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams) {
+                    androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams params =
+                            (androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
+
+                    // Setting behavior to NULL physically severs the AppBar from the RecyclerView.
+                    // The OS scrolling engine can no longer communicate with the AppBar to pull it open.
+                    params.setBehavior(null);
+                    appBar.setLayoutParams(params);
+                }
+
+                // 5. Apply the frosted glass overlay
                 appBar.setBackgroundResource(R.color.nirwana_glass_surface);
             }
         }
     }
-    // END NIRWANA TITLE FIX
+    // END NIRWANA INJECTION
 
     @Override
     protected String getLogTag() {
