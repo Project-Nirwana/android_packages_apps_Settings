@@ -120,50 +120,59 @@ public class MyDeviceInfoFragment extends DashboardFragment
         }
     }
 
+    // PROJECT NIRWANA: LIFECYCLE-IMMUNE TITLE KILL & GEOMETRY OVERRIDE
     @Override
-    public void onStart() {
-        super.onStart();
-        initHeader();
+    public void onResume() {
+        super.onResume();
 
-        // PROJECT NIRWANA: STRUCTURAL GEOMETRY OVERRIDE & GHOST KILLER
         Activity activity = getActivity();
         if (activity != null) {
+            // 1. Initial Title Kill (Executes during standard onResume)
+            activity.setTitle("");
+
             com.google.android.material.appbar.AppBarLayout appBar =
                     activity.findViewById(R.id.app_bar);
 
             if (appBar != null) {
-                // 1. Disable layout expansion animations
-                appBar.setExpanded(false, false);
-
-                if (appBar.getChildCount() > 0) {
-                    android.view.View child = appBar.getChildAt(0);
-
-                    // 2. THE GHOST KILLER: Disable the Material Text Canvas
-                    if (child instanceof com.google.android.material.appbar.CollapsingToolbarLayout) {
-                        com.google.android.material.appbar.CollapsingToolbarLayout collapsingToolbar =
-                                (com.google.android.material.appbar.CollapsingToolbarLayout) child;
-
-                        // Physically disables the rendering of the native large title
-                        collapsingToolbar.setTitleEnabled(false);
-                        collapsingToolbar.setTitle("");
-                    }
-
-                    // 3. Mutate the bounds directly to destroy the gap
-                    if (child.getLayoutParams() instanceof com.google.android.material.appbar.AppBarLayout.LayoutParams) {
-                        com.google.android.material.appbar.AppBarLayout.LayoutParams ctlParams =
-                                (com.google.android.material.appbar.AppBarLayout.LayoutParams) child.getLayoutParams();
-
-                        ctlParams.height = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-                        ctlParams.setScrollFlags(0);
-                        child.setLayoutParams(ctlParams);
-                    }
-                }
-
-                // 4. Inject the frosted glass surface
+                // Apply the frosted glass overlay
                 appBar.setBackgroundResource(R.color.nirwana_glass_surface);
+
+                // 2. Queue the Geometry Mutation & Secondary Kill to run AFTER the OS finishes drawing
+                appBar.post(() -> {
+                    // Force a secondary title kill just in case SubSettings was delayed
+                    activity.setTitle("");
+
+                    appBar.setExpanded(false, false);
+
+                    if (appBar.getChildCount() > 0) {
+                        android.view.View child = appBar.getChildAt(0);
+
+                        if (child instanceof com.google.android.material.appbar.CollapsingToolbarLayout) {
+                            com.google.android.material.appbar.CollapsingToolbarLayout ctl =
+                                    (com.google.android.material.appbar.CollapsingToolbarLayout) child;
+
+                            // Silence the Material 3 text canvas
+                            ctl.setTitleEnabled(false);
+                            ctl.setTitle("");
+
+                            // Mutate bounds to destroy the gap
+                            if (ctl.getLayoutParams() instanceof com.google.android.material.appbar.AppBarLayout.LayoutParams) {
+                                com.google.android.material.appbar.AppBarLayout.LayoutParams params =
+                                        (com.google.android.material.appbar.AppBarLayout.LayoutParams) ctl.getLayoutParams();
+
+                                params.height = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+                                params.setScrollFlags(0);
+                                ctl.setLayoutParams(params);
+                            }
+                            // 3. Force the Android rendering engine to redraw the UI with our collapsed bounds
+                            ctl.requestLayout();
+                        }
+                    }
+                });
             }
         }
     }
+    // END NIRWANA INJECTION
 
     @Override
     protected String getLogTag() {
