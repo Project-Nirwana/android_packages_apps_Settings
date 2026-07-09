@@ -123,65 +123,47 @@ public class MyDeviceInfoFragment extends DashboardFragment
     @Override
     public void onStart() {
         super.onStart();
-        initHeader();
-    }
+        initHeader(); // Keep the native AOSP call
 
-    // PROJECT NIRWANA: THE VOID & PADDING ANNIHILATOR
-    @Override
-    public void onResume() {
-        super.onResume();
-
+        // PROJECT NIRWANA: STRUCTURAL GEOMETRY OVERRIDE
         Activity activity = getActivity();
         if (activity != null) {
-            // 1. Suppress native text
+            // 1. Suppress the native text string
             activity.setTitle("");
 
             com.google.android.material.appbar.AppBarLayout appBar =
                     activity.findViewById(R.id.app_bar);
 
             if (appBar != null) {
-                // 2. Instantly force the gap shut
+                // 2. Disable layout expansion animations
                 appBar.setExpanded(false, false);
 
-                // 3. Strip scroll flags to permanently prevent nested-scroll re-expansion
-                for (int i = 0; i < appBar.getChildCount(); i++) {
-                    android.view.View child = appBar.getChildAt(i);
-                    if (child.getLayoutParams() instanceof com.google.android.material.appbar.AppBarLayout.LayoutParams) {
-                        com.google.android.material.appbar.AppBarLayout.LayoutParams childParams =
-                                (com.google.android.material.appbar.AppBarLayout.LayoutParams) child.getLayoutParams();
+                // 3. Mutate the CollapsingToolbar bounds directly
+                if (appBar.getChildCount() > 0) {
+                    android.view.View collapsingToolbar = appBar.getChildAt(0);
 
-                        childParams.setScrollFlags(0);
-                        child.setLayoutParams(childParams);
+                    if (collapsingToolbar.getLayoutParams() instanceof com.google.android.material.appbar.AppBarLayout.LayoutParams) {
+                        com.google.android.material.appbar.AppBarLayout.LayoutParams ctlParams =
+                                (com.google.android.material.appbar.AppBarLayout.LayoutParams) collapsingToolbar.getLayoutParams();
+
+                        // DESTROY THE HARDCODED 152dp XML DIMENSION
+                        // Force it to wrap the Action Bar (respecting status bar insets automatically)
+                        ctlParams.height = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+
+                        // Sever scroll physics
+                        ctlParams.setScrollFlags(0);
+
+                        // Apply mutated parameters
+                        collapsingToolbar.setLayoutParams(ctlParams);
                     }
                 }
 
-                // 4. Apply the frosted glass overlay
+                // 4. Inject the frosted glass surface
                 appBar.setBackgroundResource(R.color.nirwana_glass_surface);
-
-                // 5. THE PADDING ANNIHILATOR
-                androidx.recyclerview.widget.RecyclerView recyclerView = getListView();
-                if (recyclerView != null) {
-                    // We use post() to wait for the AppBar to finish snapping shut
-                    recyclerView.post(() -> {
-                        // Get the exact height of the now-collapsed AppBar (Toolbar + Status Bar)
-                        int collapsedHeight = appBar.getHeight();
-
-                        // Force the RecyclerView to drop the stale 150dp void and snap to the collapsed height
-                        recyclerView.setPadding(
-                                recyclerView.getPaddingLeft(),
-                                collapsedHeight,
-                                recyclerView.getPaddingRight(),
-                                recyclerView.getPaddingBottom()
-                        );
-
-                        // Ensure the list items can visually glide under the frosted glass when scrolling
-                        recyclerView.setClipToPadding(false);
-                    });
-                }
             }
         }
     }
-    // END NIRWANA INJECTION
+
     @Override
     protected String getLogTag() {
         return LOG_TAG;
